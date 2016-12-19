@@ -1,111 +1,68 @@
-# [Grape](https://github.com/intridea/grape) + [Goliath](https://github.com/postrank-labs/goliath) Example REST API
+# [Grape](https://github.com/intridea/grape) + [Mongoid](https://docs.mongodb.com/ruby-driver/master/mongoid/) REST API for TIME CARD ENTRY
 
 ## What is this?
 
 * Grape is micro-framework for creating REST-like APIs in Ruby.
-* Goliath is a non-blocking Ruby web server
+* Mongoid is the officially supported ODM (Object-Document-Mapper) framework for MongoDB in Ruby.
 
 Together you can create a highly scalable API and use the nice features of Grape to specify how your REST API will work.
 
 ## Getting Started
 
-First take a copy of the project
+First Install Mongodb in your local system (using Homebrew)
 
-    git clone https://github.com/djones/grape-goliath-example.git
-    cd grape-goliath-example/
+    Update Homebrew’s package database
+
+        $ brew update
+
+    Install MongoDB
+
+        $ brew install mongodb
+
+Next Run MongoDB
+
+   Create the data directory
+
+        $ mkdir -p /data/db
+
+   Specify the path of the data directory
+
+        $ mongod --dbpath <path to data directory created before>
+
+Stop MongoDB
+
+   To stop MongoDB, press Control+C in the terminal where the mongod instance is running
+
+
+Next take a copy of the project
+
+    git clone https://github.com/minkhati/grapeapi-mongodb.git
+    cd grapeapi-mongodb/
 
 Install dependencies
 
     bundle install
 
-Next create and migrate your database
+Finally start the RACK server and you're done!
 
-    rake db:setup
+    $ rackup
 
-Finally start the server and you're done!
 
-    ruby server.rb -vs
+Now let's list all the timecards in the database:
 
-Now let's list all the posts in the database:
-
-    curl http://localhost:9000/v1/posts.json
+    curl http://localhost:9292/v1/timecards.json
     => []
 
-A blank array in response tells us there are no posts yet.
+A blank array in response tells us there are no timecards yet.
 
-## Adding a Post
+## Adding a Timecard
 
-    curl -X POST -d '{"post":{"title":"David Jones","body":"this is my message"}}' http://localhost:9000/v1/posts/create
+    curl -X POST -d '{"timecard":{"username":"Sample User","occurrence":"2016-12-19"}}' http://localhost:9000/v1/timecards/create
 
-Now list all the posts again
+Now list all the timecards again
 
-    curl http://localhost:9000/v1/posts.json
-    => [{"body":"this is my message","created_at":"2012-05-11T13:35:03-07:00","id":1,"title":"David Jones","updated_at":"2012-05-11T13:35:03-07:00"}]
+    curl http://localhost:9000/v1/timecards.json
+    => [{"body":"this is my message","created_at":"2012-12-19T10:10:10-10:10","id":1,"username":"sample User","updated_at":"2012-12-19T10:10:10-10:10"}]
 
-Your first post has now shown up.
+Your first timecard has now shown up.
 
-# Next Steps
-
-This is just a basic Grape API example. You can see the post API specified in `app/api/posts.rb`. You could expand that API and add your own models in `app/models`. Grape's readme has some [basic usage examples](https://github.com/intridea/grape#basic-usage) that will help get you started.
-
-# Deploy on Heroku
-
-First we create a new Heroku application
-
-    heroku create --stack cedar YOURAPPNAME
-
-Next we push the code to Heroku
-
-    git push heroku master
-
-Finally we need to migrate the database on Heroku
-
-    heroku run rake db:migrate RACK_ENV=production
-
-Now you should be able to request posts from your app and get an empty array back as there are no posts saved yet.
-
-    curl http://YOURAPPNAME.herokuapp.com/v1/posts.json
-    => []
-
-Next you could use the "Adding a Post" example above to write your first post to the server.
-
-# Extras
-
-You can use Rails-like database commands.
-
-### Locally, you can:
-
-Drop your database:
-
-    rake db:drop
-
-Create your database:
-
-    rake db:create
-
-Migrate your database:
-
-    rake db:migrate
-
-Create and migrate your database:
-
-    rake db:setup
-
-### On Heroku, you can:
-
-Migrate your database:
-
-    heroku run rake db:migrate RACK_ENV=production
-
-# Resources
-
-* [The Grapes of Rapid](http://www.confreaks.com/videos/475-rubyconf2010-the-grapes-of-rapid) - everything you need to know about Grape.
-* [Building high-performance (Ruby) web services](http://www.confreaks.com/videos/653-gogaruco2011-0-60-with-goliath-building-high-performance-ruby-web-services) - everything you need to know about Goliath.
-
-# Todo
-
-* Unify all the 'require' statements.
-* Make it work with databases other than PostgreSQL.
-* Write some tests using the API.
-* Add some example authentication.
-* Add support for multiple environments e.g. test, development and production.
