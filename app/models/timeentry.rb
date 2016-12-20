@@ -19,10 +19,11 @@ class Timeentry
   # Sort the time_entries
   scope :ordered, -> { order('created_at DESC') }
 
-  #validates :id, presence: true, uniqueness: true
+  #validates :entry_id, presence: true, uniqueness: true
   validates :time, presence: true
   validates :timecard_id, presence: true
 
+  # For getting all Timeentries
   def self.getAllEntries
     allEntries = Array.new
     @cards = Timecard.all.ordered
@@ -34,6 +35,7 @@ class Timeentry
     allEntries
   end
 
+  # for getting Timecard related to Timeentry Id
   def self.getTimeCardId(entry_id)
     timecardid = nil
     @cards = Timecard.all.ordered

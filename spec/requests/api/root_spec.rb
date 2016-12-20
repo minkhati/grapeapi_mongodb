@@ -36,8 +36,7 @@ describe API::Root do
       # The endpoint should also returns a JSON document
       # containing the error 'Unsupported media type'
       it 'returns Unsupported media type' do
-        expect(JSON.parse(last_response.body)).to eq(
-                                                      {"error"=>"Unsupported media type"})
+        expect(JSON.parse(last_response.body)).to eq({"error"=>"Unsupported media type"})
       end
 
     end
@@ -52,8 +51,7 @@ describe API::Root do
         header 'Content-Type', 'application/vnd.api+json'
         get '/api/status'
         expect(last_response.status).to eq 200
-        expect(JSON.parse(last_response.body)).to eq(
-                                                      { 'status' => 'ok' })
+        expect(JSON.parse(last_response.body)).to eq({ 'status' => 'ok' })
       end
 
     end
