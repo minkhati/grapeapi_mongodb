@@ -47,8 +47,8 @@ Finally start the RACK server and you're done!
 
     $ rackup
 
-
-Now let's list all the timecards in the database:
+#### (You can give all GET methods http://localhost:9292/v1/timecards.json in the browser for or use API client like POSTMAN). Please make sure the id used is auto generated. So use the id that has been generated in your system
+Now let's list all the timecards in the database
 
     $ curl http://localhost:9292/v1/timecards.json
     => []
@@ -125,10 +125,12 @@ Now list the timecard again, this time total_hours field will get set nil and yo
 # Todo
 
 * Implement Authentication and Authorization
-* Make it work with databases other than MongoDB.
-* Write some tests using the Rspec, API or any other tools.
+* Consider all possible validations (Done only some basic validation)
+* Make it work with databases other than MongoDB
+* Implement grape-swagger gem to auto-generates Swagger-compliant documentation for Grape API
+* Write some tests using the Rspec, API or any other tools
 * Add support for multiple environments e.g. test, development and production.
 * Add the robust logic to calculate Time Card total_hours considering the various possibilities
 * Consider various required parameters to integrate it with the real production system
-* consider the throughput (efficiency) considering the huge number of API users
+* Consider the throughput (efficiency) considering the huge number of API users
 * Many more features are possible based on the end application
