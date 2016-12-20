@@ -1,5 +1,5 @@
 # app/api/v1/timeentries.rb
-require 'pry'
+#require 'pry'
 
 module API
   module V1

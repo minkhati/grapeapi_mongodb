@@ -37,17 +37,24 @@ class Timecard
   # Also defining an index will make the query more efficient
   index({ card_id: 1 }, { unique: true, name: "card_id_index" })
 
+
   # For updating the Timecard total_hours field
   def self.updateTotalHours(timecard, operation)
+
     timeentries = Timeentry.getAllTimeEntries(timecard.card_id)
+
     if timeentries.count > 1 && operation == 'update'
+
       t1 = timeentries.first.time
       t2 = timeentries.last.time
       diff = t2.to_time - t1.to_time
-      total_hours = diff / 60 / 60
+      total_hours = diff / 60 / 60  # converts to hours from seconds
       timecard.update(total_hours: total_hours)
+
     elsif timeentries.count < 2 && operation == 'delete'
+
       timecard.update(total_hours: nil)
+
     end
   end
 

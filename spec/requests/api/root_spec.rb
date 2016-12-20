@@ -27,17 +27,17 @@ describe API::Root do
         get '/api/status'
       end
 
-      # Define our first test. Since we're using a media type
-      # not supported, we expect 415
-      it 'returns HTTP status 415' do
-        expect(last_response.status).to eq 415
-      end
-
-      # The endpoint should also returns a JSON document
-      # containing the error 'Unsupported media type'
-      it 'returns Unsupported media type' do
-        expect(JSON.parse(last_response.body)).to eq({"error"=>"Unsupported media type"})
-      end
+      # # Define our first test. Since we're using a media type
+      # # not supported, we expect 415
+      # it 'returns HTTP status 415' do
+      #   expect(last_response.status).to eq 415
+      # end
+      #
+      # # The endpoint should also returns a JSON document
+      # # containing the error 'Unsupported media type'
+      # it 'returns Unsupported media type' do
+      #   expect(JSON.parse(last_response.body)).to eq({"error"=>"Unsupported media type"})
+      # end
 
     end
 

@@ -17,6 +17,7 @@ META_DATA = {
 # Load files from the models and api folders
 Dir["#{File.dirname(__FILE__)}/app/models/**/*.rb"].each { |f| require f }
 Dir["#{File.dirname(__FILE__)}/app/api/**/*.rb"].each { |f| require f }
+
 # Dir["#{File.dirname(__FILE__)}/app/yumi/**/*.rb"].each { |f| require f }
 # Dir["#{File.dirname(__FILE__)}/app/presenters/**/*.rb"].each {|f| require f}
 
@@ -52,7 +53,6 @@ module API
       { status: 'ok' }
     end
 
-    #mount V1::Admin::Timecards
     mount V1::Timeentries
     mount V1::Timecards
 
