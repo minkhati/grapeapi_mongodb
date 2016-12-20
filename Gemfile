@@ -10,8 +10,8 @@ gem 'mongoid_auto_increment'
 
 gem 'pry-byebug' # Debugging purpose same as gem 'pry'
 gem 'shotgun'  # To auto-reload the Grape application and we can start the server using shotgun config.ru instead of rackup
-
-gem 'hashie-forbidden_attributes'
+#
+# gem 'hashie-forbidden_attributes'
 
 gem 'rspec'
 gem 'rack-test'

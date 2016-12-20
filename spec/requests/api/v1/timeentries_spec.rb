@@ -1,4 +1,4 @@
-# # spec/requests/api/v1/posts_spec.rb
+# # spec/requests/api/v1/timeentries_spec.rb
 # require 'spec_helper'
 #
 # describe API::V1::Timeentries do
@@ -173,7 +173,7 @@
 #       expect(last_response.status).to eq 200
 #     end
 #
-#     # ... but did it really remove the comment from the DB?
+#     # ... but did it really remove the timeentry from the DB?
 #     it 'removes the timeentry' do
 #       id = timeentry.id
 #       delete "/api/v1/timeentries/#{id}"

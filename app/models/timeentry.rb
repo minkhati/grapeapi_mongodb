@@ -8,7 +8,7 @@ class Timeentry
   include Mongoid::Autoinc
 
   field :entry_id, type: Integer
-  field :time, type: DateTime
+  field :time, type: Time
   field :timecard_id, type: Integer
 
   increments :entry_id
@@ -33,6 +33,16 @@ class Timeentry
       end
     end
     allEntries
+  end
+
+  # For getting Timeentries for a given timecard_id
+  def self.getAllTimeEntries(timecard_id)
+    allTimeEntries = Array.new
+    @card = Timecard.find_by(card_id: timecard_id)
+    @card.timeentries.each do |entry|
+      allTimeEntries.push(entry)
+    end
+    allTimeEntries
   end
 
   # for getting Timecard related to Timeentry Id

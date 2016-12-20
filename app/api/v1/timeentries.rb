@@ -26,29 +26,48 @@ module API
           desc 'Create a Time Entry.'
           params do
             requires :timecard_id, type: Integer
-            requires :time, type: DateTime
+            requires :time, type: Time
           end
           post do
             timecard = Timecard.find_by(card_id: "#{params[:timecard_id]}")
-            timecard.timeentries.create!({
-                                      time: params[:time],
-                                      timecard_id: params[:timecard_id]
-                                   })
+            if timecard
+              timeentries = Timeentry.getAllTimeEntries(timecard.card_id)
+              #binding.pry
+              if timeentries.count < 2
+                timecard.timeentries.create!({
+                                          time: params[:time],
+                                          timecard_id: params[:timecard_id]
+                                       })
+              else
+                timecard.timeentries.last.update!({
+                                                      time: params[:time],
+                                                      timecard_id: params[:timecard_id]
+                                                  })
+              end
+
+              # Update the Timecard total_hours
+              Timecard.updateTotalHours(timecard, 'update')
+            end
+
           end
 
           desc 'Update a Time Entry.'
           params do
             requires :entry_id, type: Integer
-            requires :time, type: DateTime
+            requires :time, type: Time
 
           end
           put ':entry_id' do
-            #timecard_id = Timeentry.getTimeCardId(params[:entry_id])
             timecard = Timecard.find_by(card_id: "#{params[:timecard_id]}")
-            timecard.timeentries.find_by(entry_id: "#{params[:entry_id]}").update!({
+            if timecard
+              timecard.timeentries.find_by(entry_id: "#{params[:entry_id]}").update!({
                                                       time: params[:time],
                                                       timecard_id: params[:timecard_id]
-                                                    }) if timecard
+                                                    })
+
+              # Update the Timecard total_hours
+              Timecard.updateTotalHours(timecard, 'update')
+            end
           end
 
           desc 'Delete a Time Entry.'
@@ -57,8 +76,13 @@ module API
           end
           delete ':entry_id' do
             timecard_id = Timeentry.getTimeCardId(params[:entry_id])
-            timecard = Timecard.find_by(card_id: timecard_id) if timecard_id
-            timecard.timeentries.find_by(entry_id: "#{params[:entry_id]}").destroy if timecard
+            if timecard_id
+              timecard = Timecard.find_by(card_id: timecard_id)
+              timecard.timeentries.find_by(entry_id: "#{params[:entry_id]}").destroy if timecard
+
+              # Update the Timecard total_hours after deletion
+              Timecard.updateTotalHours(timecard, 'delete')
+            end
           end
 
         end

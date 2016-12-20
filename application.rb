@@ -2,7 +2,7 @@
 require 'grape'
 
 require 'mongoid'
-require 'hashie-forbidden_attributes'
+#require 'hashie-forbidden_attributes'
 
 require 'autoinc'
 
@@ -17,8 +17,8 @@ META_DATA = {
 # Load files from the models and api folders
 Dir["#{File.dirname(__FILE__)}/app/models/**/*.rb"].each { |f| require f }
 Dir["#{File.dirname(__FILE__)}/app/api/**/*.rb"].each { |f| require f }
-Dir["#{File.dirname(__FILE__)}/app/yumi/**/*.rb"].each { |f| require f }
-Dir["#{File.dirname(__FILE__)}/app/presenters/**/*.rb"].each {|f| require f}
+# Dir["#{File.dirname(__FILE__)}/app/yumi/**/*.rb"].each { |f| require f }
+# Dir["#{File.dirname(__FILE__)}/app/presenters/**/*.rb"].each {|f| require f}
 
 # Grape API class. We will inherit from it in our future controllers.
 module API
@@ -29,23 +29,23 @@ module API
     formatter :json, -> (object, _env) { object.to_json }
     content_type :json, 'application/vnd.api+json'
 
-    helpers do
-      def base_url
-        "http://#{request.host}:#{request.port}/api/#{version}"
-      end
-
-      def invalid_media_type!
-        error!('Unsupported media type', 415)
-      end
-
-      def json_api?
-        request.content_type == 'application/vnd.api+json'
-      end
-    end
-
-    before do
-      invalid_media_type! unless json_api?
-    end
+    # helpers do
+    #   def base_url
+    #     "http://#{request.host}:#{request.port}/api/#{version}"
+    #   end
+    #
+    #   def invalid_media_type!
+    #     error!('Unsupported media type', 415)
+    #   end
+    #
+    #   def json_api?
+    #     request.content_type == 'application/vnd.api+json'
+    #   end
+    # end
+    #
+    # before do
+    #   invalid_media_type! unless json_api?
+    # end
 
     # Simple endpoint to get the current status of our API.
     get :status do

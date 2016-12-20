@@ -37,8 +37,6 @@ GEM
       rack-mount
       virtus (>= 1.0.0)
     hashie (3.4.2)
-    hashie-forbidden_attributes (0.1.1)
-      hashie (>= 3.0)
     i18n (0.7.0)
     ice_nine (0.11.1)
     json (1.8.3)
@@ -105,7 +103,6 @@ PLATFORMS
 DEPENDENCIES
   factory_girl
   grape
-  hashie-forbidden_attributes
   mongoid (~> 5.0.0)
   mongoid-autoinc
   mongoid_auto_increment

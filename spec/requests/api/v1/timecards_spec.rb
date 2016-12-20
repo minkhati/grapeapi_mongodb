@@ -173,7 +173,7 @@ describe API::V1::Timecards do
   #     end
   #
   #     it 'contains the timeentry relationship' do
-  #       id = comment.id.to_s
+  #       id = timeentry.id.to_s
   #       expect(json['data'][0]['relationships']['timeentries']).to eq(
   #                                                                   relationship(url, 'timeentries', timecard_object.id, id)
   #                                                               )
